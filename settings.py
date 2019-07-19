@@ -8,3 +8,6 @@ USER = 'admin'
 PASS = '123'
 HOST = 'localhost'
 DB_NAME = 'bm'
+
+
+LIMIT = 1000

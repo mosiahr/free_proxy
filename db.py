@@ -9,7 +9,9 @@ from models import Base, FreeProxyModel
 class DB:
     __model = FreeProxyModel
 
-    def __init__(self, schema, user, password, host, db_name, echo=False):
+    def __init__(self, schema, user, password, host, db_name, limit,
+                 echo=False):
+        self.limit = limit
         self.engine = create_engine(
             f'{schema}://{user}:{password}@{host}/{db_name}', echo=echo)
 
@@ -45,14 +47,17 @@ class DB:
                     print(e)
                     self.session.rollback()
 
-    def del_max(self, limit=1000):
+        if self.limit:
+            self.del_max()
+
+    def del_max(self):
         last_proxy = self.session.query(self.__model) \
             .order_by(desc(self.__model.time_created and self.__model.id)) \
             .first()
 
         try:
             delete_q = self.__model.__table__.delete() \
-                .where(self.__model.id < last_proxy.id - limit + 1)
+                .where(self.__model.id < last_proxy.id - self.limit + 1)
             self.session.execute(delete_q)
             self.session.commit()
         except Exception as e:
