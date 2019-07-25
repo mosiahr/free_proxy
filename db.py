@@ -63,3 +63,6 @@ class DB:
         except Exception as e:
             print(e)
             self.session.rollback()
+
+    def get_proxy(self):
+        return self.session.query(self.__model).all()
