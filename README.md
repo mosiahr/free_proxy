@@ -1,6 +1,6 @@
 #**Free Proxy List**
 
-Scraping free proxy list and use sqlalchemy to save its to database.
+Scraping free proxy list and use sqlalchemy to save it to database.
 
 You can get a proxy list just by writing:
     ```
