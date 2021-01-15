@@ -15,3 +15,6 @@ __pycache__/
 media/
 node_modules
 .vscode/
+
+free_proxy.csv
+free_proxy.sqlite3

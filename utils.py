@@ -1,4 +1,4 @@
-__author__ = "Mosia Hryhorii (grishamosya@gmail.com)"
+__author__ = "Hryhorii Mosia (mosia.dev@gmail.com)"
 
 import datetime
 

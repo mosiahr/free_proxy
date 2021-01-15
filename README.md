@@ -1,29 +1,37 @@
-#**Free Proxy List**
+# Free Proxy List
 
-Scraping free proxy list and use sqlalchemy to save it to database.
+Scraping free proxy list and use SQLAlchemy to save it to database.
 
-You can get a proxy list just by writing:
-    ```
-    FreeProxyScraper(URL).scraping()
-    ```
-
-You'll get: ```[{'ip_address': '47.74.84.13', 'port': 443, 'code': 'AU', 'country': 'Australia', 'anonymity': 'anonymous', 'google': 'no', 'https': 'no', 'last_checked': '9 seconds ago'}, {'ip_address': '174.137.49.135', 'port': 3128, 'code': 'US', 'country': 'United States', 'anonymity': 'anonymous', 'google': 'no', 'https': 'no', 'last_checked': '9 seconds ago'}, {'ip_address': '77.34.60.182', 'port': 8080, 'code': 'RU', 'country': 'Russian Federation', 'anonymity': 'anonymous', 'google': 'no', 'https': 'no', 'last_checked': '9 seconds ago'}, ...```
-
-To **save list to the database**, you need to use an instance DB. He needs to give the scheme, user, password, host, db_name, limit, echo.
+## Getting Started
+1. Clone this repo with command:  
+     `git clone git@github.com:mosiahr/free_proxy.git`  
+     `cd free_proxy/`
+2. Create a virtual environment (either `pipenv`, `virtualenv` or `venv`)
+3. Install requirements (either with `pipenv` or `pip install -r requirements.txt`)
+4. Run the command to get help:  
+    `python3 main.py --help`
     
-    The string form of the URL is
-    ``dialect[+driver]://user:password@host/dbname[?key=value..]``, where
-    ``dialect`` is a database name such as ``mysql``, ``oracle``,
-    ``postgresql``, etc., and ``driver`` the name of a DBAPI, such as
-    ``psycopg2``, ``pyodbc``, ``cx_oracle``, etc.  Alternatively,
-    the URL can be an instance of :class:`~sqlalchemy.engine.url.URL`.
-    
-    limit: Parameter that sets the maximum number of rows in the table
-    
-    echo=False: if True, the Engine will log all statements
-        as well as a ``repr()`` of their parameter lists to the default log
-        handler, which defaults to ``sys.stdout`` for output.   If set to the
-        string ``"debug"``, result rows will be printed to the standard output
-        as well. The ``echo`` attribute of ``Engine`` can be modified at any
-        time to turn logging on and off; direct control of logging is also
-        available using the standard Python ``logging`` module. 
+## Save proxies to CSV file
+Run command: `python3 main.py --file csv`  
+or with short option: `python3 main.py -f csv`
+
+## Save proxies to SQLite database
+Run command: `python3 main.py --database sqlite`  
+or with short option `python3 main.py -db sqlite`
+ 
+## Save proxies to MySQL database
+1. Before run program you need to set variables 
+`SCHEMA_MYSQL, USER_MYSQL, PASS_MYSQL, HOST_MYSQL, DB_NAME_MYSQL` in `settings.py`  
+
+2. Run command: `python3 main.py --database mysql`  
+    or with short option `python3 main.py -db mysql`
+
+## How to use proxies in your program?
+You can get a proxy list just by writing:  
+`scraper = FreeProxyScraper()`   
+`proxies = scraper.scraping()`
+
+## Use echo
+That see logs use argument: `--echo yes`  
+For example:  
+  `python3 main.py -db sqlite --echo yes`

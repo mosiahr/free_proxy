@@ -1,19 +1,25 @@
-__author__ = "Mosia Hryhorii (grishamosya@gmail.com)"
+__author__ = "Hryhorii Mosia (mosia.dev@gmail.com)"
 
 from sqlalchemy import create_engine, desc
 from sqlalchemy.orm import sessionmaker
 
 from models import Base, FreeProxyModel
+from settings import LIMIT
 
 
 class DB:
     __model = FreeProxyModel
 
-    def __init__(self, schema, user, password, host, db_name, limit,
-                 echo=False):
+    def __init__(self, schema, user=None, password=None, host=None,
+                 db_name=None, limit=LIMIT, echo=False, which_db=None):
         self.limit = limit
-        self.engine = create_engine(
-            f'{schema}://{user}:{password}@{host}/{db_name}', echo=echo)
+
+        if which_db == 'sqlite':
+            self.engine = create_engine(schema + db_name, echo=echo)
+
+        if which_db == 'mysql':
+            self.engine = create_engine(
+                f'{schema}://{user}:{password}@{host}/{db_name}', echo=echo)
 
         self.create_all_table()
 
